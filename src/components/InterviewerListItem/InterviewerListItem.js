@@ -4,14 +4,14 @@ import './InterviewerListItem.scss';
 
 const InterviewerListItem = (props) => {
   const { selected, setInterviewer } = props;
-  const { id, name, avatar } = props.interviewer;
+  const { id, name, avatar } = props.value;
 
   const InterviewListItemStyle = className('interviewers__item', {
     'interviewers__item--selected': selected,
   });
 
   return (
-    <li key={id} onClick={setInterviewer} className={InterviewListItemStyle}>
+    <li key={id} onClick={e => setInterviewer(id)} className={InterviewListItemStyle}>
       <img className="interviewers__item-image" src={avatar} alt={name} />
       {selected && name}
     </li>

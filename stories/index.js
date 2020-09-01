@@ -81,10 +81,10 @@ storiesOf('InterviewerListItem', module)
   .addParameters({
     backgrounds: [{ name: 'dark', value: '#222f3e', default: true }],
   })
-  .add('Unselected', () => <InterviewerListItem interviewer={interviewer} />)
-  .add('Selected', () => <InterviewerListItem interviewer={interviewer} selected />)
+  .add('Unselected', () => <InterviewerListItem value={interviewer} />)
+  .add('Selected', () => <InterviewerListItem value={interviewer} selected />)
   .add('Clickable', () => (
-    <InterviewerListItem interviewer={interviewer} setInterviewer={action('setInterviewer')} />
+    <InterviewerListItem value={interviewer} onChange={action('setInterviewer')} />
   ));
 
 const interviewers = [
@@ -100,13 +100,13 @@ storiesOf('InterviewerList', module)
     backgrounds: [{ name: 'dark', value: '#222f3e', default: true }],
   })
   .add('Initial', () => (
-    <InterviewerList interviewers={interviewers} setInterviewer={action('setInterviewer')} />
+    <InterviewerList interviewers={interviewers} onChange={action('setInterviewer')} />
   ))
   .add('Preselected', () => (
     <InterviewerList
       interviewers={interviewers}
-      interviewer={3}
-      setInterviewer={action('setInterviewer')}
+      value={3}
+      onChange={action('setInterviewer')}
     />
   ));
 
