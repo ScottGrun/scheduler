@@ -10,6 +10,16 @@ import DayListItem from 'components/DayListItem/DayListItem';
 import DayList from 'components/DayList/DayList';
 import InterviewerList from 'components/InterviewerList/InterviewerList';
 import InterviewerListItem from 'components/InterviewerListItem/InterviewerListItem';
+import Appointment from 'components/Appointment/index';
+import Header from 'components/Appointment/Header';
+import Empty from 'components/Appointment/Empty';
+import Show from 'components/Appointment/Show';
+import Confirm from 'components/Appointment/Confirm';
+import Status from 'components/Appointment/Status';
+import Error from 'components/Appointment/Error';
+import Form from 'components/Appointment/Form';
+import { act } from '@testing-library/react';
+
 
 storiesOf('Button', module)
   .addParameters({
@@ -98,4 +108,19 @@ storiesOf('InterviewerList', module)
       interviewer={3}
       setInterviewer={action('setInterviewer')}
     />
-  ))
+  ));
+
+storiesOf('Appointment', module)
+  .addParameters({
+    backgrounds: [{ name: 'white', value: '#fff', default: true }],
+  })
+  .add('Appointment', () => <Appointment />)
+  .add("Appointment with Time", () => <Appointment time="12pm" />)
+  .add("Header with Time", () => <Header time="12pm" />)
+  .add("Empty", () => <Empty onAdd={action("onAdd")} />)
+  .add("Show", () => <Show student="Lydia Miller-Jone" interviewer={interviewer} onEdit={action('onEdit')} onDelete={action('onDelete')} />)
+  .add("Confirm", () => <Confirm message='Delete the appointment?' onCancel={action("onCancel")} onConfirm={action("onConfirm")} />)
+  .add("Status", () => <Status message="Deleteing" />)
+  .add("Error", () => <Error onClose={action('onClose')} message="Could not delete appointment." />)
+  .add("Edit", () => <Form name="Scott G" interviewers={interviewers} interviewer={3} onSave={action('onSave')} onCancel={action('onCancel')}/>)
+  .add("Create", () => <Form  interviewers={interviewers}  onSave={action('onSave')} onCancel={action('onCancel')}/>)
