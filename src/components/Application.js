@@ -1,8 +1,9 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 
 import 'components/Application.scss';
 
 import DayList from 'components/DayList/DayList';
+import Appointment from 'components/Appointment/index';
 
 const days = [
   {
@@ -22,12 +23,58 @@ const days = [
   },
 ];
 
-export default function Application(props) {
+const appointments = [
+  {
+    id: 1,
+    time: '12pm',
+  },
+  {
+    id: 2,
+    time: '1pm',
+    interview: {
+      student: 'Lydia Miller-Jones',
+      interviewer: {
+        id: 1,
+        name: 'Sylvia Palmer',
+        avatar: 'https://i.imgur.com/LpaY82x.png',
+      },
+    },
+  },
+  {
+    id: 3,
+    time: '2pm',
+    interview: {
+      student: 'Fred Miller-Jones',
+      interviewer: {
+        id: 1,
+        name: 'Sylvia Palmer',
+        avatar: 'https://i.imgur.com/LpaY82x.png',
+      },
+    },
+  },
+  {
+    id: 4,
+    time: '3pm',
+    interview: {
+      student: 'Jeff Miller-Jones',
+      interviewer: {
+        id: 1,
+        name: 'Sylvia Palmer',
+        avatar: 'https://i.imgur.com/LpaY82x.png',
+      },
+    },
+  },
+];
 
-  const [currentDay, setDay] = useState('Monday')
+const parsedAppointments = appointments.map((appointmentElem) => (
+  <Appointment key={appointmentElem.id} {...appointmentElem} />
+));
+
+export default function Application(props) {
+  const [currentDay, setDay] = useState('Monday');
 
   return (
-    <main  className="layout">
+    <main className="layout">
       <section className="sidebar">
         <img className="sidebar--centered" src="images/logo.png" alt="Interview Scheduler" />
         <hr className="sidebar__separator sidebar--centered" />
@@ -41,7 +88,10 @@ export default function Application(props) {
         />
       </section>
       <section className="schedule">
-        {/* Replace this with the schedule elements durint the "The Scheduler" activity. */}
+        <>
+          {parsedAppointments}
+          <Appointment key="last" time="5pm" />
+        </>
       </section>
     </main>
   );
