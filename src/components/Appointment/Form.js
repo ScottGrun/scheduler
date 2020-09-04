@@ -3,24 +3,24 @@ import Button from '../Button/Button';
 import InterviewerList from '../InterviewerList/InterviewerList';
 
 const Form = (props) => {
-  const [formName, setFormName] = useState(props.name || "");
+  const [formName, setFormName] = useState(props.name || '');
   const [formInterviewer, setInterviewer] = useState(props.interviewer || null);
 
-  const {onSave} = props;
+  const { onSave } = props;
 
-  const reset = ()=>{
+  const reset = () => {
     setFormName('');
     setInterviewer(null);
-  }
+  };
 
-  const onCancel =()=>{
+  const onCancel = () => {
     reset();
-  }
+  };
 
   return (
     <main className="appointment__card appointment__card--create">
       <section className="appointment__card-left">
-        <form autoComplete="off" onSubmit={event => event.preventDefault()}>
+        <form autoComplete="off" onSubmit={(event) => event.preventDefault()}>
           <input
             className="appointment__create-input text--semi-bold"
             name="name"
@@ -28,9 +28,6 @@ const Form = (props) => {
             placeholder="Enter Student Name"
             value={formName}
             onChange={(e) => setFormName(e.target.value)}
-            /*
-          This must be a controlled component
-        */
           />
         </form>
         <InterviewerList
@@ -44,7 +41,7 @@ const Form = (props) => {
           <Button onClick={props.onCancel} danger>
             Cancel
           </Button>
-          <Button onClick={onSave}  confirm>
+          <Button onClick={() => props.onSave(formName, formInterviewer)} confirm>
             Save
           </Button>
         </section>
