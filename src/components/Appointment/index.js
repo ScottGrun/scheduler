@@ -49,7 +49,7 @@ const Appointment = (props) => {
   }
 
   return (
-    <article className="appointment">
+    <article className="appointment" data-testid="appointment">
       <Header time={props.time} />
       {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
       {mode === SHOW && (
@@ -58,7 +58,7 @@ const Appointment = (props) => {
       {mode === CREATE && (
         <Form interviewers={props.interviewers} onSave={save} onCancel={() => back()} />
       )}
-      {mode === SAVING && <Status />}
+      {mode === SAVING && <Status message="Saving" />}
       {mode === CONFIRM && <Confirm message="Confirm Delete" onCancel={() => back()} onConfirm={cancel} />}
       {mode === EDIT &&  <Form interviewers={props.interviewers} name={props.interview.student} interviewer={props.interview.interviewer.id} onSave={save} onCancel={() => back()} />}
       {mode === ERROR_SAVE && <Error onClose={()=> back()} message="There was a error saving." />}

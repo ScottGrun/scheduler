@@ -62,7 +62,6 @@ const useApplicationData = () => {
   return {
     state,
     setDay(day) {
-      console.log(state);
 
       setState({ ...state, day });
     },
