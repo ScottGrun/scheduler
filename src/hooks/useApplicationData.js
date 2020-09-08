@@ -30,12 +30,11 @@ const useApplicationData = () => {
     }
 
 
-    let new_days = state.days;
+    let new_days = [...state.days];
 
 
     for (let i = 0; i < state.days.length; i++) {
       if (state.days[i].id === new_day.id) {
-        console.log(`match`);
         new_days.splice(i, 1, new_day);
       }
     }
