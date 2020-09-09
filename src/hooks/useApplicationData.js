@@ -9,25 +9,32 @@ const useApplicationData = () => {
   });
 
 
-  const updateDays =(adding)=>{
+  const updateDays =(adding, appointment, appointments)=>{
     
     const currentDay = state.day;
     const currentDayToUpdate = state.days.filter((day) => day.name === currentDay)[0];
     let new_day = {};
 
-    if(adding){
-       new_day = {
-        ...currentDayToUpdate,
-        spots: currentDayToUpdate.spots - 1,
-      };
+if(state.appointments[appointment.id].interview){
+  console.log('already exists')
+  if(!adding) {
+    new_day = {
+      ...currentDayToUpdate,
+      spots: currentDayToUpdate.spots + 1,
+    };
+ 
+  }
+} else {
+  if(adding){
+    new_day = {
+     ...currentDayToUpdate,
+     spots: currentDayToUpdate.spots - 1,
+   };
+
+ } 
+}
   
-    } else {
-      new_day = {
-        ...currentDayToUpdate,
-        spots: currentDayToUpdate.spots + 1,
-      };
-  
-    }
+ 
 
 
     let new_days = [...state.days];
@@ -39,7 +46,8 @@ const useApplicationData = () => {
       }
     }
 
-    return new_days;
+    setState({ ...state, appointments, days: new_days });
+
   }
 
   useEffect(() => {
@@ -74,9 +82,9 @@ const useApplicationData = () => {
         ...state.appointments,
         [id]: appointment,
       };
+      updateDays(false, appointment, appointments)
 
       return axios.delete(`/api/appointments/${id}`).then((res) => {
-        setState({ ...state, appointments, days: updateDays(false) });
         return true;
       });
     },
@@ -93,8 +101,8 @@ const useApplicationData = () => {
         [id]: appointment,
       };
 
+      updateDays(true, appointment, appointments)
       return axios.put(`/api/appointments/${id}`, appointment).then((res) => {
-        setState({ ...state, appointments, days: updateDays(true) });
         return true;
       });
     },

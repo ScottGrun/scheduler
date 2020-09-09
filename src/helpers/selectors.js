@@ -23,6 +23,7 @@ export function getInterview(state, interview) {
     ...interview,
     interviewer: state.interviewers[interview.interviewer],
   };
+  console.log(interviewWithInterviewer)
   return interviewWithInterviewer;
 }
 
