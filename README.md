@@ -1,5 +1,9 @@
 # Interview Scheduler
 
+## Description
+
+This is a full-stack React app built to simulate an app that companies could use to allow potential new hires to book their interview slots, based on available times and available interviewers.
+
 ## Setup
 
 Install dependencies with `npm install`.
