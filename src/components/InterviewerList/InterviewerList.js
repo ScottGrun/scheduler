@@ -4,13 +4,8 @@ import PropTypes from 'prop-types';
 import InterviewerListItem from 'components/InterviewerListItem/InterviewerListItem';
 import './InterviewList.scss';
 
-
-
-
 const InterviewList = (props) => {
   const { interviewers, interviewer, onChange } = props;
-
-
 
   const parsedInterviewerItems = interviewers.map((interviewerElem) => (
     <InterviewerListItem
@@ -29,12 +24,10 @@ const InterviewList = (props) => {
   );
 };
 
-
 InterviewList.propTypes = {
   interviewers: PropTypes.array.isRequired,
 };
 
 //Prop type validation
-
 
 export default InterviewList;

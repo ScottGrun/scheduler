@@ -1,24 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React from 'react';
 
 import { getAppointmentsForDay, getInterview, getInterviewersForDay } from '../helpers/selectors';
-import useApplicationData  from '../hooks/useApplicationData';
+import useApplicationData from '../hooks/useApplicationData';
 
 import DayList from 'components/DayList/DayList';
 import Appointment from 'components/Appointment/index';
 
 import 'components/Application.scss';
 
-export default function Application(props) {  
-
-
-  const {
-    state,
-    setDay,
-    bookInterview,
-    cancelInterview
-  } = useApplicationData();
-
+export default function Application(props) {
+  const { state, setDay, bookInterview, cancelInterview } = useApplicationData();
 
   const parsedAppointments = getAppointmentsForDay(state, state.day).map((appointmentElem) => (
     <Appointment
@@ -30,7 +21,6 @@ export default function Application(props) {
       cancelInterview={cancelInterview}
     />
   ));
-
 
   return (
     <main className="layout">

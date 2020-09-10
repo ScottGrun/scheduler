@@ -6,7 +6,7 @@ describe('Booking Interview', () => {
     cy.contains('Monday');
   });
 
-  xit('should book an interview', () => {
+  it('should book an interview', () => {
     //open form
     cy.get('[alt=Add]').first().click();
 
@@ -24,7 +24,7 @@ describe('Booking Interview', () => {
     cy.contains('.appointment__card--show', 'Sylvia Palmer');
   });
 
-  xit('should edit an interview', () => {
+  it('should edit an interview', () => {
     cy.get('[alt=Edit]').first().click({ force: true });
 
     cy.get('[data-testid=student-name-input]').clear().type('Coll Person Name');
@@ -37,7 +37,7 @@ describe('Booking Interview', () => {
 
     cy.contains('button', 'Confirm').click();
 
-    cy.contains('Saving');
+    cy.contains('Deleteing');
 
     cy.contains('.appointment__card--show', 'Archie Cohen').should('not.exist');
   });

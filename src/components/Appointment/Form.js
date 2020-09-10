@@ -7,25 +7,12 @@ const Form = (props) => {
   const [formInterviewer, setInterviewer] = useState(props.interviewer || null);
   const [error, setError] = useState('');
 
-  const { onSave } = props;
-
-  const reset = () => {
-    setFormName('');
-    setInterviewer(null);
-  };
-
-  const onCancel = () => {
-    reset();
-  };
-
- 
-
   const validate = () => {
     if (formName === '') {
       setError('Student name cannot be blank');
       return;
     }
-    setError('')
+    setError('');
     props.onSave(formName, formInterviewer);
   };
 

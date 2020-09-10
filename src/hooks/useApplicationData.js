@@ -8,37 +8,30 @@ const useApplicationData = () => {
     appointments: {},
   });
 
-
-  const updateDays =(adding, appointment, appointments)=>{
-    
+  const updateDays = (adding, appointment, appointments) => {
     const currentDay = state.day;
     const currentDayToUpdate = state.days.filter((day) => day.name === currentDay)[0];
     let new_day = {};
 
-if(state.appointments[appointment.id].interview){
-  console.log('already exists')
-  if(!adding) {
-    new_day = {
-      ...currentDayToUpdate,
-      spots: currentDayToUpdate.spots + 1,
-    };
- 
-  }
-} else {
-  if(adding){
-    new_day = {
-     ...currentDayToUpdate,
-     spots: currentDayToUpdate.spots - 1,
-   };
-
- } 
-}
-  
- 
-
+    //Checks to see if we the appointment currently exists and if it does
+    //it will not incremenet the spots remaining
+    if (state.appointments[appointment.id].interview) {
+      if (!adding) {
+        new_day = {
+          ...currentDayToUpdate,
+          spots: currentDayToUpdate.spots + 1,
+        };
+      }
+    } else {
+      if (adding) {
+        new_day = {
+          ...currentDayToUpdate,
+          spots: currentDayToUpdate.spots - 1,
+        };
+      }
+    }
 
     let new_days = [...state.days];
-
 
     for (let i = 0; i < state.days.length; i++) {
       if (state.days[i].id === new_day.id) {
@@ -47,8 +40,7 @@ if(state.appointments[appointment.id].interview){
     }
 
     setState({ ...state, appointments, days: new_days });
-
-  }
+  };
 
   useEffect(() => {
     Promise.all([
@@ -69,7 +61,6 @@ if(state.appointments[appointment.id].interview){
   return {
     state,
     setDay(day) {
-
       setState({ ...state, day });
     },
     cancelInterview(id) {
@@ -82,14 +73,13 @@ if(state.appointments[appointment.id].interview){
         ...state.appointments,
         [id]: appointment,
       };
-      updateDays(false, appointment, appointments)
+      updateDays(false, appointment, appointments);
 
       return axios.delete(`/api/appointments/${id}`).then((res) => {
         return true;
       });
     },
     bookInterview(id, interview) {
-      // setState(...state, days)
 
       const appointment = {
         ...state.appointments[id],
@@ -101,10 +91,12 @@ if(state.appointments[appointment.id].interview){
         [id]: appointment,
       };
 
-      updateDays(true, appointment, appointments)
+      updateDays(true, appointment, appointments);
+
       return axios.put(`/api/appointments/${id}`, appointment).then((res) => {
         return true;
       });
+
     },
   };
 };

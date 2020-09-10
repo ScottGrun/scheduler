@@ -4,19 +4,12 @@ import { render, act } from '@testing-library/react';
 import Application from 'components/Application';
 
 describe('Appointment', () => {
-  //TEST #1
-
-
 
   it('renders without crashing', async () => {
-    await act(async()=>{
+    await act(async () => {
       render(<Application />);
-
-    })
-
+    });
   });
-
-  //Mock func
 
   it("it doesn't call the function", () => {
     const fn = jest.fn();

@@ -18,8 +18,6 @@ import Confirm from 'components/Appointment/Confirm';
 import Status from 'components/Appointment/Status';
 import Error from 'components/Appointment/Error';
 import Form from 'components/Appointment/Form';
-import { act } from '@testing-library/react';
-
 
 storiesOf('Button', module)
   .addParameters({
@@ -105,7 +103,7 @@ storiesOf('InterviewerList', module)
   .add('Preselected', () => (
     <InterviewerList
       interviewers={interviewers}
-      value={3}
+      interviewer={3}
       onChange={action('setInterviewer')}
     />
   ));
@@ -115,28 +113,47 @@ storiesOf('Appointment', module)
     backgrounds: [{ name: 'white', value: '#fff', default: true }],
   })
   .add('Appointment', () => <Appointment />)
-  .add("Appointment with Time", () => <Appointment time="12pm" />)
-  .add("Header with Time", () => <Header time="12pm" />)
-  .add("Empty", () => <Empty onAdd={action("onAdd")} />)
-  .add("Show", () => <Show student="Lydia Miller-Jone" interviewer={interviewer} onEdit={action('onEdit')} onDelete={action('onDelete')} />)
-  .add("Confirm", () => <Confirm message='Delete the appointment?' onCancel={action("onCancel")} onConfirm={action("onConfirm")} />)
-  .add("Status", () => <Status message="Deleteing" />)
-  .add("Error", () => <Error onClose={action('onClose')} message="Could not delete appointment." />)
-  .add("Edit", () => <Form name="Scott G" interviewers={interviewers} interviewer={3} onSave={action('onSave')} onCancel={action('onCancel')}/>)
-  .add("Create", () => <Form  interviewers={interviewers}  onSave={action('onSave')} onCancel={action('onCancel')}/>)
-  .add("Appointment Empty", () => (
+  .add('Appointment with Time', () => <Appointment time="12pm" />)
+  .add('Header with Time', () => <Header time="12pm" />)
+  .add('Empty', () => <Empty onAdd={action('onAdd')} />)
+  .add('Show', () => (
+    <Show
+      student="Lydia Miller-Jone"
+      interviewer={interviewer}
+      onEdit={action('onEdit')}
+      onDelete={action('onDelete')}
+    />
+  ))
+  .add('Confirm', () => (
+    <Confirm
+      message="Delete the appointment?"
+      onCancel={action('onCancel')}
+      onConfirm={action('onConfirm')}
+    />
+  ))
+  .add('Status', () => <Status message="Deleteing" />)
+  .add('Error', () => <Error onClose={action('onClose')} message="Could not delete appointment." />)
+  .add('Edit', () => (
+    <Form
+      name="Scott G"
+      interviewers={interviewers}
+      interviewer={3}
+      onSave={action('onSave')}
+      onCancel={action('onCancel')}
+    />
+  ))
+  .add('Create', () => (
+    <Form interviewers={interviewers} onSave={action('onSave')} onCancel={action('onCancel')} />
+  ))
+  .add('Appointment Empty', () => (
     <>
       <Appointment id={1} time="12pm" />
       <Appointment id="last" time="1pm" />
     </>
   ))
-  .add("Appointment Booked", () => (
+  .add('Appointment Booked', () => (
     <>
-      <Appointment
-        id={1}
-        time="12pm"
-        interview={{ student: "Lydia Miller-Jones", interviewer }}
-      />
+      <Appointment id={1} time="12pm" interview={{ student: 'Lydia Miller-Jones', interviewer }} />
       <Appointment id="last" time="1pm" />
     </>
-  ))
+  ));
