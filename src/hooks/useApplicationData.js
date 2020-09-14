@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import updateDays from '../helpers/updateDays'
+
 const useApplicationData = () => {
   const [state, setState] = useState({
     day: 'Monday',
@@ -61,48 +61,57 @@ const useApplicationData = () => {
     });
   }, []);
 
+  const setDay =(day)=> {
+    setState({ ...state, day });
+  }
+
+  const cancelInterview =(id)=> {
+    const appointment = {
+      ...state.appointments[id],
+      interview: null,
+    };
+
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment,
+    };
+
+    return axios.delete(`/api/appointments/${id}`).then((res) => {
+      updateDays(false, appointment, appointments);
+
+      return true;
+    });
+  }
+
+  const bookInterview =(id, interview)=> {
+
+    const appointment = {
+      ...state.appointments[id],
+      interview: { ...interview },
+    };
+
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment,
+    };
+
+
+    return axios.put(`/api/appointments/${id}`, appointment).then((res) => {
+      updateDays(true, appointment, appointments);
+
+      return true;
+    })
+
+  }
+
+  
+
   return {
     state,
-    setDay(day) {
-      setState({ ...state, day });
-    },
-    cancelInterview(id) {
-      const appointment = {
-        ...state.appointments[id],
-        interview: null,
-      };
-
-      const appointments = {
-        ...state.appointments,
-        [id]: appointment,
-      };
-
-      return axios.delete(`/api/appointments/${id}`).then((res) => {
-        updateDays(false, appointment, appointments);
-
-        return true;
-      });
-    },
-    bookInterview(id, interview) {
-
-      const appointment = {
-        ...state.appointments[id],
-        interview: { ...interview },
-      };
-
-      const appointments = {
-        ...state.appointments,
-        [id]: appointment,
-      };
-
-
-      return axios.put(`/api/appointments/${id}`, appointment).then((res) => {
-        updateDays(true, appointment, appointments);
-
-        return true;
-      })
-
-    },
+    setDay,
+    cancelInterview,
+    bookInterview
+ 
   };
 };
 
