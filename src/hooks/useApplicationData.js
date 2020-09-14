@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-
+import updateDays from '../helpers/updateDays'
 const useApplicationData = () => {
   const [state, setState] = useState({
     day: 'Monday',
     days: [],
     appointments: {},
   });
+
 
   const updateDays = (adding, appointment, appointments) => {
     const currentDay = state.day;
@@ -42,6 +43,8 @@ const useApplicationData = () => {
     setState({ ...state, appointments, days: new_days });
   };
 
+
+
   useEffect(() => {
     Promise.all([
       axios.get('/api/days'),
@@ -73,9 +76,10 @@ const useApplicationData = () => {
         ...state.appointments,
         [id]: appointment,
       };
-      updateDays(false, appointment, appointments);
 
       return axios.delete(`/api/appointments/${id}`).then((res) => {
+        updateDays(false, appointment, appointments);
+
         return true;
       });
     },
@@ -91,11 +95,12 @@ const useApplicationData = () => {
         [id]: appointment,
       };
 
-      updateDays(true, appointment, appointments);
 
       return axios.put(`/api/appointments/${id}`, appointment).then((res) => {
+        updateDays(true, appointment, appointments);
+
         return true;
-      });
+      })
 
     },
   };
